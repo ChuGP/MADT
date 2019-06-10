@@ -1,5 +1,5 @@
 # MADT
-使用以下技術完成Line ChatBot\
+使用以下技術完成Line ChatBot
 
 `Conversational UI` \
 `ChatBot` \
@@ -15,4 +15,4 @@
 `Google BigQuery` \
 `Kendo / Anguular` \
 `Google Firebase Authentication` \
-`Google Stackdriver`\
+`Google Stackdriver`
