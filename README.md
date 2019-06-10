@@ -1,6 +1,6 @@
 # MADT
-使用以下技術完成Line ChatBot
-Line ChatBot \
+使用以下技術完成Line ChatBot \
+`Line ChatBot` \
 Conversational UI / ChatBot \
 Line Messaging API \
 WeChat Open Platform \
