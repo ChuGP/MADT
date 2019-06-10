@@ -1,0 +1,1162 @@
+{
+  "name": "shop3c",
+  "intents": [
+    {
+      "intent": "Yes",
+      "examples": [
+        {
+          "text": "好"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Welcome",
+      "examples": [
+        {
+          "text": "hello"
+        },
+        {
+          "text": "hi"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Deposit",
+      "examples": [
+        {
+          "text": "帳戶加值"
+        },
+        {
+          "text": "我要加值"
+        },
+        {
+          "text": "加值"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "productList",
+      "examples": [
+        {
+          "text": "商品列表"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "No",
+      "examples": [
+        {
+          "text": "不要"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Pay",
+      "examples": [
+        {
+          "text": "支付"
+        },
+        {
+          "text": "我要付款"
+        },
+        {
+          "text": "商品支付"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Balance",
+      "examples": [
+        {
+          "text": "餘額"
+        },
+        {
+          "text": "餘額查詢"
+        },
+        {
+          "text": "我要查詢餘額"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "shopReport",
+      "examples": [
+        {
+          "text": "營運報表"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "payRecord",
+      "examples": [
+        {
+          "text": "消費紀錄"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "Insuracne",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "保險商店",
+          "synonyms": [
+            "幸福一生",
+            "健康致富",
+            "安養久久",
+            "保險"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "Product",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "電腦",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "手機",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "平板",
+          "synonyms": []
+        }
+      ]
+    },
+    {
+      "entity": "Phone",
+      "values": [
+        {
+          "type": "patterns",
+          "value": "Form",
+          "patterns": [
+            "^09[0-9]{8}$"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "3C",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "3C商店",
+          "synonyms": [
+            "3C",
+            "手機",
+            "電腦"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "sys-number",
+      "values": []
+    },
+    {
+      "entity": "Shop",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "餐廳",
+          "synonyms": [
+            "義大利麵",
+            "燉飯",
+            "便當"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "3C商店",
+          "synonyms": [
+            "3C",
+            "手機",
+            "電腦"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "保險商店",
+          "synonyms": [
+            "保險",
+            "產險",
+            "壽險"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "Restaurant",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "餐廳",
+          "synonyms": [
+            "義大利麵",
+            "牛肉麵"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "Address",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "住家",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "公司",
+          "synonyms": []
+        }
+      ]
+    }
+  ],
+  "language": "zh-cn",
+  "metadata": {
+    "api_version": {
+      "major_version": "v1",
+      "minor_version": "2018-09-20"
+    }
+  },
+  "description": "",
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "JumpToBalanceError",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1552835664118",
+      "context": {
+        "result": {
+          "balance": "$result.totalBalance"
+        }
+      },
+      "conditions": "true",
+      "dialog_node": "node_7_1552852471604",
+      "previous_sibling": "node_4_1552841374113"
+    },
+    {
+      "type": "standard",
+      "title": "JumpToPay",
+      "parent": "node_2_1552835664118",
+      "conditions": "$state==\"pay\"",
+      "dialog_node": "node_4_1552841374113"
+    },
+    {
+      "type": "standard",
+      "title": "AmountError",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_2_1552833462825",
+      "context": {
+        "counter": "<? $counter == null? 1: $counter+1?>"
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "true",
+      "dialog_node": "node_1_1552834425237",
+      "previous_sibling": "node_7_1552833658483"
+    },
+    {
+      "type": "standard",
+      "title": "AmountOK",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_2_1552833462825",
+      "actions": [
+        {
+          "name": "deposit",
+          "type": "client",
+          "parameters": {
+            "amount": "@sys-number"
+          },
+          "result_variable": "context.result"
+        }
+      ],
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "@sys-number >0",
+      "dialog_node": "node_7_1552833658483"
+    },
+    {
+      "type": "standard",
+      "title": "Pay",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "您的帳戶原有 $result.oldBalance 元，支付 $result.amount 元後，餘額為 $result.newBalance 元。\n謝謝購買，稍後我們將進行配送，請留意相關訊息，希望很快能再為您服務"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1552849424828",
+      "context": {},
+      "conditions": "false",
+      "dialog_node": "node_8_1557202048385"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "您已購買《$result.productName 》 ，價格 $result.productPrice 元，確認付款？"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1557198463078",
+      "conditions": "true",
+      "dialog_node": "node_8_1557209110170"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_5_1557209359607",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "好的，明天中午12:00以前會為您送至公司\\n地址如下: $result.address 。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1557209343112",
+      "conditions": "$place == \"公司\"",
+      "dialog_node": "response_5_1557209359607",
+      "previous_sibling": "response_3_1557209356717"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_3_1557209356717",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "好的，今晚9:00以前會為您送至府上\\n地址如下: $result.address 。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1557209343112",
+      "conditions": "$place == \"住家\"",
+      "dialog_node": "response_3_1557209356717"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_8_1557209110170",
+      "actions": [
+        {
+          "name": "pay",
+          "type": "client",
+          "parameters": {
+            "productName": "$result.productName",
+            "productPrice": "$result.productPrice",
+            "transactionId": "$result.transactionId"
+          },
+          "result_variable": "context.result"
+        }
+      ],
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "#Yes",
+      "dialog_node": "node_4_1557209131904"
+    },
+    {
+      "type": "standard",
+      "title": "Ack4Deposit",
+      "output": {
+        "deleted": "<?context.remove('counter') ?>",
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "您的帳戶原有 $result.oldBalance 元，加值 $result.amount 元後，餘額為 $result.newBalance 元"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1552833658483",
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "true",
+      "dialog_node": "node_2_1552835664118"
+    },
+    {
+      "type": "standard",
+      "title": "PayNo",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_1_1552849228385",
+      "actions": [
+        {
+          "name": "cancel",
+          "type": "client",
+          "parameters": {
+            "price": "$product.price",
+            "product": "$product.name",
+            "shopName": "$shopName"
+          },
+          "result_variable": "context.result"
+        }
+      ],
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "#No",
+      "dialog_node": "node_5_1552849434822",
+      "previous_sibling": "node_1_1552849424828"
+    },
+    {
+      "type": "standard",
+      "title": "PayOK",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_1_1552849228385",
+      "actions": [
+        {
+          "name": "pay",
+          "type": "client",
+          "parameters": {
+            "shopId": "$result.fromShopId",
+            "productName": "$result.productName",
+            "productPrice": "$result.productPrice",
+            "transactionId": "$result.transactionId"
+          },
+          "result_variable": "context.result"
+        }
+      ],
+      "conditions": "#Yes",
+      "dialog_node": "node_1_1552849424828"
+    },
+    {
+      "type": "standard",
+      "title": "CounterError",
+      "output": {
+        "deleted": "<?context.remove('counter') ?>",
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "很抱歉，我不了解您的意思，已為您暫停加值。\n若您需要進一步服務，請洽客服人員：0945214563"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1552834425237",
+      "conditions": "true",
+      "dialog_node": "node_7_1552835106639",
+      "previous_sibling": "node_3_1552834479430"
+    },
+    {
+      "type": "standard",
+      "title": "CounterOK",
+      "parent": "node_1_1552834425237",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "node_7_1552833658483"
+      },
+      "conditions": "$counter <3",
+      "dialog_node": "node_3_1552834479430"
+    },
+    {
+      "type": "standard",
+      "title": "PhoneOk",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_3_1555579841604",
+      "actions": [
+        {
+          "name": "follow",
+          "type": "client",
+          "parameters": {
+            "phone": "<? input.text?>"
+          },
+          "result_variable": "context.result"
+        }
+      ],
+      "conditions": "true",
+      "dialog_node": "node_4_1555580064259"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_6_1552835960576",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "您想加值多少錢？"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1552834479430",
+      "conditions": "anything_else",
+      "dialog_node": "response_6_1552835960576",
+      "previous_sibling": "response_8_1552835943177"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_8_1552835943177",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "加值金額不正確"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "您想加值多少錢？"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1552834479430",
+      "conditions": "@sys-number",
+      "dialog_node": "response_8_1552835943177"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_8_1558793073663",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "您的帳戶原有 $result.oldBalance 元，支付 $result.amount 元後，餘額為 $result.newBalance 元。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "糟了!上述帳戶餘額有誤 ，依區塊鏈技術，原有餘額應為 $result.oldStratoBalance 元 ，支付 $result.amount 元後 ，正確金額應為 $result.newStratoBalance 元 ，請速與商店經理聯繫。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_8_1557209174507",
+      "context": {
+        "balanceState": "error"
+      },
+      "conditions": "$result.newStratoBalance != $result.newBalance",
+      "dialog_node": "response_8_1558793073663",
+      "previous_sibling": "response_3_1558793030441"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_3_1558793030441",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "您的帳戶原有 $result.oldBalance 元，支付 $result.amount 元後，餘額為 $result.newBalance 元。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "上述帳戶餘額 ，業經區塊鏈技術保證無誤 ，敬請放心。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "您已支付《$result.productName 》款項 ，您想配送到住家或是公司？"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_8_1557209174507",
+      "context": {
+        "balanceState": "ok"
+      },
+      "conditions": "$result.newStratoBalance == $result.newBalance",
+      "dialog_node": "response_3_1558793030441",
+      "previous_sibling": "node_4_1557209207753"
+    },
+    {
+      "type": "standard",
+      "parent": "node_8_1557209174507",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "@Address && $balanceState == \"ok\"",
+      "dialog_node": "node_4_1557209207753"
+    },
+    {
+      "type": "standard",
+      "parent": "node_2_1557201863774",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "@Address",
+      "dialog_node": "node_9_1557202171789"
+    },
+    {
+      "type": "standard",
+      "parent": "node_4_1557209131904",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "true",
+      "dialog_node": "node_8_1557209174507"
+    },
+    {
+      "type": "standard",
+      "title": "ack4PayNo",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "知道了，本次支付已取消，希望很快能再為您服務"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1552849434822",
+      "context": {
+        "event": " "
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_7_1553411529113"
+      },
+      "conditions": "true",
+      "dialog_node": "node_10_1553758656276"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_8_1557202242558",
+      "output": {
+        "text": {
+          "values": [],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_9_1557202171789",
+      "actions": [
+        {
+          "name": "carry",
+          "type": "client",
+          "parameters": {
+            "place": "$place",
+            "transactionId": "$transactionId"
+          },
+          "result_variable": "context.result"
+        }
+      ],
+      "context": {
+        "place": "公司"
+      },
+      "conditions": "@Address:公司",
+      "dialog_node": "response_8_1557202242558",
+      "previous_sibling": "response_6_1557202206493"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_6_1557202206493",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_9_1557202171789",
+      "actions": [
+        {
+          "name": "carry",
+          "type": "client",
+          "parameters": {
+            "place": "$place",
+            "transactionId": "$transactionId"
+          },
+          "result_variable": "context.result"
+        }
+      ],
+      "context": {
+        "place": "住家"
+      },
+      "conditions": "@Address:住家",
+      "dialog_node": "response_6_1557202206493",
+      "previous_sibling": "node_2_1557202466544"
+    },
+    {
+      "type": "standard",
+      "parent": "node_9_1557202171789",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "true",
+      "dialog_node": "node_2_1557202466544"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_7_1557209247534",
+      "output": {
+        "text": {
+          "values": [
+            ""
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_4_1557209207753",
+      "actions": [
+        {
+          "name": "carry",
+          "type": "client",
+          "parameters": {
+            "place": "$place",
+            "transactionId": "$result.transactionId"
+          },
+          "result_variable": "context.result"
+        }
+      ],
+      "context": {
+        "place": "住家"
+      },
+      "conditions": "@Address:住家",
+      "dialog_node": "response_7_1557209247534",
+      "previous_sibling": "node_7_1557209343112"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_9_1557209256835",
+      "output": {
+        "text": {
+          "values": [
+            ""
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_4_1557209207753",
+      "actions": [
+        {
+          "name": "carry",
+          "type": "client",
+          "parameters": {
+            "place": "$place",
+            "transactionId": "$result.transactionId"
+          },
+          "result_variable": "context.result"
+        }
+      ],
+      "context": {
+        "place": "公司"
+      },
+      "conditions": "@Address:公司",
+      "dialog_node": "response_9_1557209256835",
+      "previous_sibling": "response_7_1557209247534"
+    },
+    {
+      "type": "standard",
+      "parent": "node_4_1557209207753",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "true",
+      "dialog_node": "node_7_1557209343112"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_7_1557202510631",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "好的，明天中午12:00以前會為您送至公司\\n地址如下: $result.address 。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1557202466544",
+      "conditions": "$place == \"公司\"",
+      "dialog_node": "response_7_1557202510631",
+      "previous_sibling": "response_1_1557202500024"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_1_1557202500024",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "好的，今晚9:00以前會為您送至府上\\n地址如下: $result.address 。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1557202466544",
+      "conditions": "$place == \"住家\"",
+      "dialog_node": "response_1_1557202500024"
+    },
+    {
+      "type": "standard",
+      "title": "Ask4Buy",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_3_1557199388577",
+      "actions": [
+        {
+          "name": "buy",
+          "type": "client",
+          "parameters": {
+            "productName": "@Product"
+          },
+          "result_variable": "context.result"
+        }
+      ],
+      "context": {},
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "@Product",
+      "dialog_node": "node_1_1557198463078"
+    },
+    {
+      "type": "standard",
+      "title": "Attention",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "您已完成關注\n\n姓名: $result.customerName\n電話: $result.customerPhone"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "歡迎加入 《智能3C》"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_4_1555580064259",
+      "context": {
+        "event": " "
+      },
+      "conditions": "true",
+      "dialog_node": "node_6_1555582856307"
+    },
+    {
+      "type": "standard",
+      "title": "Ask4Pay",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "您已購買《$result.productName 》 ，價格 $result.productPrice 元，確認付款？"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "false",
+      "dialog_node": "node_1_1552849228385",
+      "previous_sibling": "node_2_1552833462825"
+    },
+    {
+      "type": "standard",
+      "title": "shopProducts",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "我們有下列商品：\n1. 手機\n2. 平板\n3. 電腦\n你要購買哪個商品？"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#productList",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_3_1557199388577",
+      "previous_sibling": "node_3_1552832589958"
+    },
+    {
+      "type": "standard",
+      "title": "deleteSession",
+      "output": {
+        "generic": []
+      },
+      "actions": [
+        {
+          "name": "deleteSession",
+          "type": "client",
+          "result_variable": "context.result"
+        }
+      ],
+      "conditions": "false",
+      "dialog_node": "node_7_1553411529113",
+      "previous_sibling": "node_1_1552849228385"
+    },
+    {
+      "type": "standard",
+      "title": "unFollow",
+      "output": {
+        "generic": []
+      },
+      "actions": [
+        {
+          "name": "unfollow",
+          "type": "client",
+          "result_variable": "context.result"
+        }
+      ],
+      "context": {
+        "event": " "
+      },
+      "conditions": "$event == \"unfollow\"",
+      "dialog_node": "node_5_1555864286834",
+      "previous_sibling": "node_3_1555579841604"
+    },
+    {
+      "type": "standard",
+      "title": "其他事情",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "我没听懂。请换个讲法再说一次"
+              },
+              {
+                "text": "您能改个说法吗？我没听懂"
+              },
+              {
+                "text": "我没理解您的意思"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "其他事情",
+      "previous_sibling": "node_2_1557201863774"
+    },
+    {
+      "type": "standard",
+      "title": "Ask4Carry",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "您已支付《$result.productName 》款項，您想配送到住家或是公司？"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "false",
+      "dialog_node": "node_2_1557201863774",
+      "previous_sibling": "node_5_1555864286834"
+    },
+    {
+      "type": "standard",
+      "title": "follow",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "歡迎關注《智能3C》請告訴我你的手機...好讓我進一步為您服務"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "$event == \"follow\"",
+      "dialog_node": "node_3_1555579841604",
+      "previous_sibling": "node_7_1553411529113"
+    },
+    {
+      "type": "standard",
+      "title": "Deposit",
+      "output": {
+        "generic": []
+      },
+      "context": {
+        "counter": 0
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "#Deposit",
+      "dialog_node": "node_2_1552833462825",
+      "previous_sibling": "node_3_1557199388577"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "歡迎來到《智能3C》\n我可以提供以下服務\n1.商品列表\n2.商品購買\n您需要哪項服務?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Welcome",
+      "dialog_node": "node_3_1552832589958"
+    }
+  ],
+  "workspace_id": "0554e3e2-73eb-49cd-aac1-9d8e3627dafa",
+  "counterexamples": [],
+  "system_settings": {
+    "tooling": {
+      "store_generic_responses": true
+    }
+  },
+  "learning_opt_out": false,
+  "status": "Available"
+}

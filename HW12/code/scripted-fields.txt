@@ -1,0 +1,37 @@
+overRateCounter: 
+    if (doc["action"].value == "error" && doc["error.raw"].value =~ /流量/) { return 1 } 
+    else { return 0 }
+
+overQuotaFee: 
+    if ( doc["action"].value == "error" && doc["error.raw"].value =~ /額度/ ) { 
+        if ( doc["error.raw"].value =~ /pay/ ) { return 20 } 
+        if ( doc["error.raw"].value =~ /carry/ ) { return 200 } 
+    } else { return 0 }
+
+overRateFee: 
+    if ( doc["action"].value == "error" && doc["error.raw"].value =~ /流量/ ) { 
+        if ( doc["error.raw"].value =~ /pay/ ) { return 50 } 
+        if ( doc["error.raw"].value =~ /carry/ ) { return 500 } 
+    } else { return 0 }
+
+paymentFee: 
+    if ( doc["action"].value == "pay" ) { return doc["amount"].value * 0.03 } 
+    else { return 0 }
+
+carryFee: 
+    if ( doc["action"].value == "pay" ) { return 100 } 
+    else { return 0 }
+
+overQuotaCounter: 
+    if (doc["action"].value == "error" && doc["error.raw"].value =~ /額度/) { return 1 } 
+    else { return 0 }
+
+serviceFee: 
+    if ( doc["action"].value == "error" && doc["error.raw"].value =~ /額度/ ) { 
+        if ( doc["error.raw"].value =~ /pay/ ) { return 20 } 
+        if ( doc["error.raw"].value =~ /carry/ ) { return 200 } 
+    } else if ( doc["action"].value == "error" && doc["error.raw"].value =~ /流量/ ) { 
+        if ( doc["error.raw"].value =~ /pay/ ) { return 50 }  
+        if ( doc["error.raw"].value =~ /carry/ ) { return 500 } 
+    } else { return 0 }
+

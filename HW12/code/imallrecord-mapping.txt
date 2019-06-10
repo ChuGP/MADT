@@ -1,0 +1,31 @@
+PUT /imallrecords
+{
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "shopId":{
+        "type": "keyword"
+      },
+      "action":{
+        "type": "keyword"
+      },
+      "amount":{
+        "type": "integer"
+      },
+      "error": {
+        "type": "text",
+        "analyzer": "ik_smart",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        }
+      },
+      "timestamp": {
+        "type": "date"
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+pragma solidity >=0.5.0 <0.7.0;
+
+contract AccountBalance {
+
+    struct account {
+        string token;
+        uint balance;
+    }
+    
+    mapping (address => account) accounts;
+    string superAccountToken;
+
+    constructor() public {
+        superAccountToken = "2019Apps";
+    }
+    
+    function createAccount(address accountId,string memory authenticationToken ,string memory userToken) public{
+        require(keccak256(abi.encodePacked(authenticationToken)) == keccak256(abi.encodePacked(superAccountToken)), "unAuthorized");
+        accounts[accountId].token = userToken;
+        accounts[accountId].balance = 100000;
+    }
+    
+    
+    function getBalance(address accountId, string memory token) public view returns (uint) {
+        require(keccak256(abi.encodePacked(token)) == keccak256(abi.encodePacked(superAccountToken)) || keccak256(abi.encodePacked(token)) == keccak256(abi.encodePacked(accounts[accountId].token)), "unAuthorized");
+        return accounts[accountId].balance;
+    }
+
+    function setBalance(address accountId, string memory token , uint balance) public {
+        require(keccak256(abi.encodePacked(token)) == keccak256(abi.encodePacked(superAccountToken)), "unAuthorized");
+        accounts[accountId].balance = balance;
+    }
+}

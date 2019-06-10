@@ -1,0 +1,8 @@
+# - pipeline.id: pubsub_pipeline
+#   queue.type: persisted
+#   path.config: "/usr/share/logstash/pipeline/pubsub_pipeline.conf"
+  
+- pipeline.id: storage_pipeline # 透過 id 區分 pipeline
+  queue.type: persisted # 持久隊列，避免數據丟失
+  path.config: /usr/share/logstash/pipeline/storage_pipeline.conf # 對應container內該pipeline設定檔的位址
+
